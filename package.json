@@ -27,11 +27,12 @@
   "types": "build/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "build": "tsc && npm run bundle:cjs",
+    "build": "tsc && npm run bundle:cjs && npm run bundle:umd",
     "bundle:cjs": "rollup build/index.js --format cjs --file build/snabbdom.cjs.js",
     "examples": "serve .",
     "format": "prettier --write .",
     "prepare": "husky install",
+    "bundle:umd": "rollup build/index.js --format umd --name snabbdom --file build/snabbdom.browser.js",
     "lint": "eslint --ext .ts,.tsx,.js --ignore-path .gitignore .",
     "unit": "cross-env FILES_PATTERN=\"test/unit/*.ts,test/unit/*.tsx\" karma start karma.conf.js",
     "release": "npm run test && release-it",
@@ -101,5 +102,8 @@
         "examples"
       ]
     }
+  },
+  "dependencies": {
+    "rollup-plugin-terser": "^7.0.2"
   }
 }
